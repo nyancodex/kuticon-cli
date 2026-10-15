@@ -17,6 +17,9 @@ import (
 	"time"
 )
 
+// TestHeader carries the test token (see Client.TestToken).
+const TestHeader = "X-Kuticon-Test"
+
 // DefaultBaseURL is the public site.
 const DefaultBaseURL = "https://kuticon.com"
 
@@ -25,6 +28,9 @@ type Client struct {
 	BaseURL   string
 	HTTP      *http.Client
 	UserAgent string
+	// TestToken, when set, is sent as X-Kuticon-Test so the site stores this
+	// traffic as the operator's test traffic. The site ignores a wrong token.
+	TestToken string
 	// Sleep waits between polls. Tests swap it; nil means a context-aware sleep.
 	Sleep func(ctx context.Context, d time.Duration) error
 }
@@ -167,6 +173,9 @@ func (c *Client) do(ctx context.Context, method, u string, body any) (*http.Resp
 	}
 	if c.UserAgent != "" {
 		req.Header.Set("User-Agent", c.UserAgent)
+	}
+	if c.TestToken != "" {
+		req.Header.Set(TestHeader, c.TestToken)
 	}
 	res, err := c.HTTP.Do(req)
 	if err != nil {

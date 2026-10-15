@@ -25,7 +25,9 @@ type Fake struct {
 	Refuse  int    // status for POST /api/packs, 0 is 202
 	Message string // its error sentence
 	Agents  []string
-	Zip     []byte
+	// TestTokens are the X-Kuticon-Test headers of the pack posts.
+	TestTokens []string
+	Zip        []byte
 }
 
 // PNG is a tiny real PNG header, enough for tests that only compare bytes.
@@ -94,6 +96,7 @@ func New() *Fake {
 		f.mu.Lock()
 		f.Posts = append(f.Posts, body)
 		f.Agents = append(f.Agents, r.UserAgent())
+		f.TestTokens = append(f.TestTokens, r.Header.Get("X-Kuticon-Test"))
 		refuse, msg := f.Refuse, f.Message
 		f.mu.Unlock()
 		if refuse != 0 {

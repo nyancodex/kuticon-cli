@@ -57,6 +57,8 @@ Commands:
 
 Global flags (any command):
   --base-url URL    Site to talk to (default $KUTICON_URL, else https://kuticon.com)
+  --test-token T    Mark requests as the site operator's test traffic
+                    (default $KUTICON_TEST_TOKEN; prefer the variable)
   --json            Print machine-readable JSON on stdout
   -q, --quiet       No progress on stderr
 
@@ -75,6 +77,7 @@ Run "kuticon <command> --help" for the flags of one command.
 
 type globals struct {
 	base  string
+	test  string
 	json  bool
 	quiet bool
 }
@@ -85,6 +88,7 @@ func (g *globals) bind(fs *flag.FlagSet, e env) {
 		def = client.DefaultBaseURL
 	}
 	fs.StringVar(&g.base, "base-url", def, "site base URL (env KUTICON_URL)")
+	fs.StringVar(&g.test, "test-token", e.getenv("KUTICON_TEST_TOKEN"), "operator test token sent as X-Kuticon-Test (env KUTICON_TEST_TOKEN)")
 	fs.BoolVar(&g.json, "json", false, "print JSON on stdout")
 	fs.BoolVar(&g.quiet, "quiet", false, "no progress on stderr")
 	fs.BoolVar(&g.quiet, "q", false, "short for --quiet")
@@ -93,6 +97,7 @@ func (g *globals) bind(fs *flag.FlagSet, e env) {
 func (g *globals) client(e env) *client.Client {
 	c := client.New(g.base, "kuticon-cli/"+version.Version)
 	c.Sleep = e.sleep
+	c.TestToken = g.test
 	return c
 }
 

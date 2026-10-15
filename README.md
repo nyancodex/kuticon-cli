@@ -62,6 +62,7 @@ or two dashes (`-json` and `--json` are the same).
 | Flag | Meaning |
 | --- | --- |
 | `--base-url URL` | Site to talk to. Default `$KUTICON_URL`, else `https://kuticon.com` |
+| `--test-token T` | For the site operator: sends `X-Kuticon-Test` so your own checks are stored as test traffic. Default `$KUTICON_TEST_TOKEN` (prefer the variable; a flag shows in `ps`). The site ignores a wrong token. |
 | `--json` | Print machine-readable JSON on stdout |
 | `-q`, `--quiet` | No progress on stderr |
 

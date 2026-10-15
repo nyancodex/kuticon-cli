@@ -241,3 +241,42 @@ func TestUnzipRefusesEscape(t *testing.T) {
 		t.Fatal("wrote outside")
 	}
 }
+
+func TestTestToken(t *testing.T) {
+	f := clienttest.New()
+	defer f.Close()
+	draw := func(vars map[string]string, args ...string) result {
+		var out, errb bytes.Buffer
+		e := env{
+			stdin: strings.NewReader(""), stdout: &out, stderr: &errb,
+			getenv: func(k string) string {
+				if k == "KUTICON_URL" {
+					return f.URL
+				}
+				return vars[k]
+			},
+			sleep: func(ctx context.Context, d time.Duration) error { return ctx.Err() },
+		}
+		code := run(context.Background(), append([]string{"draw", "bakery", "-q", "--zip", "--out", t.TempDir()}, args...), e)
+		return result{code, out.String(), errb.String()}
+	}
+	const tok = "0123456789abcdef0123456789abcdef0123456789abcdef"
+	if r := draw(nil); r.code != 0 {
+		t.Fatal(r)
+	}
+	if r := draw(map[string]string{"KUTICON_TEST_TOKEN": tok}); r.code != 0 || strings.Contains(r.stdout+r.stderr, tok) {
+		t.Fatal(r)
+	}
+	if r := draw(map[string]string{"KUTICON_TEST_TOKEN": "from-env"}, "--test-token", "from-flag"); r.code != 0 {
+		t.Fatal(r)
+	}
+	want := []string{"", tok, "from-flag"}
+	for i, w := range want {
+		if f.TestTokens[i] != w {
+			t.Fatalf("post %d test token %q, want %q", i, f.TestTokens[i], w)
+		}
+	}
+	if r := runCLI(t, nil, "help"); strings.Contains(r.stdout, tok) || !strings.Contains(r.stdout, "--test-token") {
+		t.Fatal("help")
+	}
+}
