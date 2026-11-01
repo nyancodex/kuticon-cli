@@ -192,7 +192,7 @@ func (s *Server) initialize(req request) {
 		"protocolVersion": v,
 		"capabilities":    map[string]any{"tools": map[string]any{"listChanged": false}},
 		"serverInfo":      map[string]any{"name": "kuticon", "title": "Kuticon icons", "version": ver},
-		"instructions": "Kuticon draws free CC0 icon packs from one sentence and searches its icon library. " +
+		"instructions": "Kuticon draws free CC BY 4.0 icon packs (credit Kuticon) from one sentence and searches its icon library. " +
 			"Search the library first (search_icons, get_icon): it is instant and free. " +
 			"draw_icon_pack queues a new pack, counts against a small daily limit per network, and can take a few minutes; " +
 			"if it times out, call it again with job_id instead of drawing again.",

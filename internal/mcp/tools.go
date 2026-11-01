@@ -81,7 +81,7 @@ func Definitions() []map[string]any {
 		{
 			"name":        "search_icons",
 			"title":       "Search icons",
-			"description": "Search the Kuticon icon library (thousands of free CC0 icons on one 24-unit grid). One word also matches inside longer words; several words match any whole word. Returns ids, names, packs, and URLs. Use get_icon for the SVG.",
+			"description": "Search the Kuticon icon library (thousands of free CC BY 4.0 icons; credit Kuticon on one 24-unit grid). One word also matches inside longer words; several words match any whole word. Returns ids, names, packs, and URLs. Use get_icon for the SVG.",
 			"inputSchema": map[string]any{
 				"type": "object",
 				"properties": map[string]any{

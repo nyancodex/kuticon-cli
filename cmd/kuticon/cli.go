@@ -41,7 +41,7 @@ type env struct {
 	sleep func(ctx context.Context, d time.Duration) error
 }
 
-const usageText = `kuticon draws free CC0 icon packs from one sentence, and searches the Kuticon icon library.
+const usageText = `kuticon draws free CC BY 4.0 icon packs from one sentence, and searches the Kuticon icon library.
 
 Usage:
   kuticon <command> [arguments] [flags]

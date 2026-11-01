@@ -5,7 +5,8 @@ sentence into a 12-icon pack, or search the icon library, from your terminal
 or your AI assistant.
 
 One small binary, `kuticon`, with no dependencies. It is a plain client of
-Kuticon's public HTTP API (the same one the website uses). Icons are CC0.
+Kuticon's public HTTP API (the same one the website uses). Icons are
+CC BY 4.0: free to use, including commercially, as long as you credit Kuticon.
 
 ## Install
 
@@ -364,4 +365,19 @@ TARGETS="darwin/arm64" VERSION=v0.1.0 scripts/release.sh
 
 ## License
 
-[MIT](LICENSE) © 2026 nyancodex. Icons you draw or download from Kuticon are CC0.
+[MIT](LICENSE) © 2026 nyancodex. The MIT license covers this tool's code only.
+
+Icons and illustrations you draw or download from Kuticon are under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (SPDX `CC-BY-4.0`):
+free to use, including commercially, as long as you credit Kuticon. One credit
+where credits fit (an about screen, credits page, footer, or README) is enough;
+say so if you changed the files. Suggested credit lines:
+
+```
+Icons by Kuticon (https://kuticon.com), CC BY 4.0
+Illustration by Kuticon (https://kuticon.com), CC BY 4.0
+```
+
+Until 1 November 2026, Kuticon files were dedicated to the public domain under
+CC0 1.0. A CC0 dedication cannot be taken back, so files downloaded before that
+date stay under CC0 1.0. Full notice: https://kuticon.com/license
